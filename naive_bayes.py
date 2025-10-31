@@ -86,10 +86,9 @@ def calculate_class_probabilities(summaries, row):
 
 
 def nb_train(train_data):
-    ### Uncomment two lines below and you will pass the train model unit test ###
-    # model = summarize_by_class(train_data)
-    # return model
-    return None
+    model = summarize_by_class(train_data)
+    return model
+    
 
 #######
 # Complete this functions:
@@ -97,7 +96,19 @@ def nb_train(train_data):
 #######
 def nb_predict(summaries, row):
     
-    return 0
+    
+    
+    probabilities = calculate_class_probabilities(summaries, row)
+    
+    
+    best_label, best_prob = None, -1
+    for class_value, probability in probabilities.items():
+        if probability > best_prob:
+            best_prob = probability
+            best_label = class_value
+            
+    
+    return best_label
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Naive Bayes Classifier")
